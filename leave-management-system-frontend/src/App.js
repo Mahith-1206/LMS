@@ -1,49 +1,18 @@
 import "./App.css";
-import { useState } from "react";
+import AdminPage from "./AdminPage";
+import Header from "./Header";
 
 function App() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
-  const [country, setCountry] = useState("");
-  const [position, setPosition] = useState("");
-
   return (
     <div className="App">
-      <div className="information ">
-        <label>Name:</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-        />
+      <Header />
 
-        <label>Age:</label>
-        <input
-          type="number"
-          onChange={(event) => {
-            setAge(event.target.value);
-          }}
-        />
+      {/* <Routes>
+  <Route path="/" exact component={AdminPage} />
+  <Route path="/add-user" component={AddUserForm} />
+</Routes> */}
 
-        <label>Country:</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setCountry(event.target.value);
-          }}
-        />
-
-        <label>Position:</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setPosition(event.target.value);
-          }}
-        />
-
-        <button>Add Employee</button>
-      </div>
+      <AdminPage />
     </div>
   );
 }

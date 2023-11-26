@@ -9,6 +9,14 @@
   border: 1px solid #ccc;
   margin-bottom: 10px;
   padding: 10px;
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+}
+
+.leave-item-cell {
+  padding: 20px;
+  border: black;
 }
 
 .employee-name {
@@ -32,4 +40,9 @@
 
 .reject-btn {
   background-color: #f44336;
+}
+
+.approve-btn.disabled,
+.reject-btn.disabled {
+  background-color: grey;
 }

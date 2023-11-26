@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AdminPage.css";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Radio,
+  Button,
+} from "@mui/material";
 
 const AdminPage = () => {
   const [leaveRequests, setLeaveRequests] = useState([]);
@@ -16,6 +27,11 @@ const AdminPage = () => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split("T")[0]; // Extracting the date portion
+  };
+
   // useEffect hook to fetch leave requests when the component mounts
   useEffect(() => {
     getLeaveRequests();
@@ -28,35 +44,82 @@ const AdminPage = () => {
     // You may want to update the UI or make another API call to reflect the change
   };
 
-  // Render the component
   return (
-    <div>
-      <h1>Leave Requests</h1>
-      <ul className="leave-list">
-        {leaveRequests.map((leave) => (
-          <li key={leave.leave_request_id} className="leave-item">
-            <div className="employee-name">{leave.user}</div>
-            <div className="date-range">
-              {leave.start_date} to {leave.end_date}
-            </div>
-            <div>
-              <button
-                className="approve-btn"
-                onClick={() => handleAction(leave.leave_request_id, "approve")}
-              >
-                Approve
-              </button>
-              <button
-                className="reject-btn"
-                onClick={() => handleAction(leave.leave_request_id, "reject")}
-              >
-                Reject
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+              ID
+            </TableCell>
+            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+              Employee
+            </TableCell>
+            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+              Start Date
+            </TableCell>
+            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+              End Date
+            </TableCell>
+            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+              {" "}
+              Number of Days
+            </TableCell>
+            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+              Leave Type
+            </TableCell>
+            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+              Reason
+            </TableCell>
+            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+              Status
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {leaveRequests.map((request) => (
+            <TableRow key={request.leave_request_id}>
+              <TableCell>{request.leave_request_id}</TableCell>
+              <TableCell>{request.user}</TableCell>
+              <TableCell>{formatDate(request.start_date)}</TableCell>
+              <TableCell>{formatDate(request.end_date)}</TableCell>
+              <TableCell>{request.number_of_days}</TableCell>
+              <TableCell>{request.leave_type}</TableCell>
+              <TableCell>{request.reason}</TableCell>
+              <TableCell>{request.status}</TableCell>
+              <TableCell>
+                <button
+                  className="approve-btn"
+                  onClick={() =>
+                    handleAction(request.leave_request_id, "approve")
+                  }
+                  disabled={
+                    request.status === "Approved" ||
+                    request.status === "Rejected"
+                  }
+                >
+                  Approve
+                </button>
+              </TableCell>
+              <TableCell>
+                <button
+                  className="reject-btn"
+                  onClick={() =>
+                    handleAction(request.leave_request_id, "reject")
+                  }
+                  disabled={
+                    request.status === "Approved" ||
+                    request.status === "Rejected"
+                  }
+                >
+                  Reject
+                </button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
