@@ -3,11 +3,13 @@ const router = express.Router();
 const mysql = require("mysql");
 const moment = require("moment");
 
+const config = require("../../../config.json");
+
 const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "root",
-  database: "leavemanagementsystem",
+  user: config.DB_USER,
+  host: config.DB_HOST,
+  password: config.DB_PASSWORD,
+  database: config.DB_NAME,
 });
 
 // Attempt to connect
@@ -50,6 +52,11 @@ router.post("/requestLeave", (req, res) => {
       const paidLeaveBalance = user.paid_leave_balance;
       const userName = user.user_name;
       //validating leave balances
+      console.log("leave type : " + leaveType);
+      console.log("number : " + numberOfDays);
+      console.log(" sick balance : " + sickLeaveBalance);
+      console.log(" paid balance : " + paidLeaveBalance);
+
       if (leaveType === "Sick Leave") {
         if (numberOfDays > sickLeaveBalance) {
           res.send("You don't have sufficient sick leave balance");
@@ -211,7 +218,7 @@ router.post("/rejectLeave/:id", (req, res) => {
           }
           if (results.affectedRows > 0) {
             console.log("Updated leave request to rejected");
-            res.send("Updated leave request to rejected");
+            res.send("Successfully Rejected Leave request!");
           }
         }
       );

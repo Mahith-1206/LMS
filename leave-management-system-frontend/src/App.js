@@ -1,18 +1,9 @@
-import "./App.css";
-import AdminPage from "./AdminPage";
-import Header from "./Header";
+import LoginPage from "./components/LoginPage";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-
-      {/* <Routes>
-  <Route path="/" exact component={AdminPage} />
-  <Route path="/add-user" component={AddUserForm} />
-</Routes> */}
-
-      <AdminPage />
+    <div>
+      <LoginPage />
     </div>
   );
 }
