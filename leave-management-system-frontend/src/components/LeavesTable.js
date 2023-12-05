@@ -11,8 +11,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Radio,
-  Button,
 } from "@mui/material";
 
 const LeavesTable = () => {
@@ -70,7 +68,7 @@ const LeavesTable = () => {
               : request
           );
         });
-        enqueueSnackbar(response.data, "success");
+        enqueueSnackbar(response.data, { variant: "success" });
       }
     }
   };

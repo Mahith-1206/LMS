@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import "../styles/LeaveRequestForm.css";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import Header from "./Header";
 
 const RequestLeaveForm = () => {
   const [startDate, setStartDate] = useState("");
@@ -12,11 +11,12 @@ const RequestLeaveForm = () => {
   const [leaveType, setLeaveType] = useState("");
   const [reason, setReason] = useState("");
   const [userId, setUserId] = useState(5);
-  const [selectedDate, setSelectedDate] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
+  const userInfo = JSON.parse(localStorage.getItem("user"));
+
   const handleRequest = async () => {
-    setUserId(5);
+    setUserId(userInfo.user_id);
     const response = await axios.post(
       "http://localhost:3001/leave/requestLeave",
       {
@@ -40,12 +40,7 @@ const RequestLeaveForm = () => {
     }
   };
 
-  const handleDateChange = (e) => {
-    setStartDate(e.target.value);
-  };
-
   useEffect(() => {
-    // Calculate the number of days whenever startDate or endDate changes
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
@@ -58,75 +53,78 @@ const RequestLeaveForm = () => {
   }, [startDate, endDate]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <div className="leave-request-form">
-        <div className="leave-request-element">
-          <label>
-            Start Date
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-          </label>
-        </div>
-        <div className="leave-request-element">
-          <label>
-            End Date
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-          </label>
-        </div>
-        <div className="leave-request-element">
-          <label>
-            Number of Days
-            <input
-              readOnly="true"
-              type="number"
-              value={numberOfDays}
-              onChange={(e) => setNumberOfDays(e.target.value)}
-            />
-          </label>
+    <>
+      <Header />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div className="leave-request-form">
           <div className="leave-request-element">
             <label>
-              Leave Type
-              <select
-                value={leaveType}
-                onChange={(e) => setLeaveType(e.target.value)}
-              >
-                <option value="">Select Leave Type</option>
-                <option value="Sick Leave">Sick Leave</option>
-                <option value="Paid Leave">Paid Leave</option>
-              </select>
+              Start Date
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
             </label>
           </div>
-        </div>
-        <div className="leave-request-element">
-          <label>
-            Reason
-            <textarea
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-            />
-          </label>
-        </div>
-        <div className="leave-request-element">
-          <button onClick={handleRequest}>Request</button>
+          <div className="leave-request-element">
+            <label>
+              End Date
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="leave-request-element">
+            <label>
+              Number of Days
+              <input
+                readOnly="true"
+                type="number"
+                value={numberOfDays}
+                onChange={(e) => setNumberOfDays(e.target.value)}
+              />
+            </label>
+            <div className="leave-request-element">
+              <label>
+                Leave Type
+                <select
+                  value={leaveType}
+                  onChange={(e) => setLeaveType(e.target.value)}
+                >
+                  <option value="">Select Leave Type</option>
+                  <option value="Sick Leave">Sick Leave</option>
+                  <option value="Paid Leave">Paid Leave</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div className="leave-request-element">
+            <label>
+              Reason
+              <textarea
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="leave-request-element">
+            <button onClick={handleRequest}>Request</button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default function IntegrationNotistack() {
+export default function RequestLeaveFormNotistack() {
   return (
     <SnackbarProvider
       maxSnack={5}

@@ -9,18 +9,18 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Radio,
-  Button,
 } from "@mui/material";
+import Header from "./Header";
 
 const EmployeeLeavesTable = () => {
   const [leaveRequests, setLeaveRequests] = useState([]);
-  const [userName, setUsername] = useState("");
+
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   const getLeaveRequests = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/leave/getLeavesByUserName/" + userName
+        "http://localhost:3001/leave/getLeavesByUserName/" + userInfo.user_name
       );
       setLeaveRequests(response.data);
     } catch (error) {
@@ -39,53 +39,56 @@ const EmployeeLeavesTable = () => {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-              ID
-            </TableCell>
-            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-              Employee
-            </TableCell>
-            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-              Start Date
-            </TableCell>
-            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-              End Date
-            </TableCell>
-            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-              {" "}
-              Number of Days
-            </TableCell>
-            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-              Leave Type
-            </TableCell>
-            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-              Reason
-            </TableCell>
-            <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
-              Status
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {leaveRequests.map((request) => (
-            <TableRow key={request.leave_request_id}>
-              <TableCell>{request.leave_request_id}</TableCell>
-              <TableCell>{request.user}</TableCell>
-              <TableCell>{formatDate(request.start_date)}</TableCell>
-              <TableCell>{formatDate(request.end_date)}</TableCell>
-              <TableCell>{request.number_of_days}</TableCell>
-              <TableCell>{request.leave_type}</TableCell>
-              <TableCell>{request.reason}</TableCell>
-              <TableCell>{request.status}</TableCell>
+    <>
+      <Header />
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                ID
+              </TableCell>
+              <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                Employee
+              </TableCell>
+              <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                Start Date
+              </TableCell>
+              <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                End Date
+              </TableCell>
+              <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                {" "}
+                Number of Days
+              </TableCell>
+              <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                Leave Type
+              </TableCell>
+              <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                Reason
+              </TableCell>
+              <TableCell style={{ fontWeight: "bold", fontSize: "16px" }}>
+                Status
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {leaveRequests.map((request) => (
+              <TableRow key={request.leave_request_id}>
+                <TableCell>{request.leave_request_id}</TableCell>
+                <TableCell>{request.user}</TableCell>
+                <TableCell>{formatDate(request.start_date)}</TableCell>
+                <TableCell>{formatDate(request.end_date)}</TableCell>
+                <TableCell>{request.number_of_days}</TableCell>
+                <TableCell>{request.leave_type}</TableCell>
+                <TableCell>{request.reason}</TableCell>
+                <TableCell>{request.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 

@@ -1,9 +1,8 @@
 import "../styles/Header.css";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function Header() {
+function AdminHeader() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -16,10 +15,7 @@ function Header() {
   return (
     <>
       <AppBar position="static">
-        <Toolbar
-          className="appbar"
-          style={{ display: "flex", flexDirection: "row" }}
-        >
+        <Toolbar className="appbar">
           <Typography variant="h4">Leave Management System</Typography>
           <div
             style={{
@@ -37,22 +33,9 @@ function Header() {
             </Button>
           </div>
         </Toolbar>
-        <Toolbar
-          sx={{ minHeight: "64px", backgroundColor: "rgb(92, 160, 185)" }}
-        >
-          <Button variant="h6" component={Link} to="/user/leave-info">
-            Leaves Info
-          </Button>
-          <Button variant="h6" component={Link} to="/user/leave-history">
-            Leave History
-          </Button>
-          <Button variant="h6" component={Link} to="/user/request-leave">
-            Request Leave
-          </Button>
-        </Toolbar>
       </AppBar>
     </>
   );
 }
 
-export default Header;
+export default AdminHeader;

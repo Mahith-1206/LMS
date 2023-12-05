@@ -37,6 +37,7 @@ router.post("/requestLeave", (req, res) => {
   const status = "pending";
   const userId = req.body.userId;
 
+  console.log("user id in node: " + userId);
   //fetching user by user id
   const getUserByUserIdQuery =
     "SELECT * FROM leavemanagementsystem.users WHERE user_id = ?";
@@ -48,6 +49,7 @@ router.post("/requestLeave", (req, res) => {
       res.send("Unable to fetch user information. Error occurred!");
     } else {
       user = results[0];
+
       const sickLeaveBalance = user.sick_leave_balance;
       const paidLeaveBalance = user.paid_leave_balance;
       const userName = user.user_name;

@@ -1,13 +1,14 @@
-import Header from "./Header";
 import LeavesTable from "./LeavesTable";
-import RequestLeaveForm from "./RequestLeaveForm";
+import AdminHeader from "./AdminHeader";
 
 function AdminPage() {
   return (
-    <div>
-      <Header />
-      <RequestLeaveForm />
-    </div>
+    <>
+      <div>
+        <AdminHeader />
+        <LeavesTable />
+      </div>
+    </>
   );
 }
 

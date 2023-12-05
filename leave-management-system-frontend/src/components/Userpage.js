@@ -1,35 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/UserPage.css"; // Import your stylesheet
-
-const UserPage = (props) => {
-  const {
-    user_id,
-    user_name,
-    password,
-    email,
-    name,
-    role,
-    sick_leave_balance,
-    paid_leave_balance,
-  } = props;
-
-  console.log("user name from props: " + props.user_name);
+import Header from "./Header";
+const UserPage = () => {
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <div className="user-page">
-      <h1>User Information</h1>
-      <div className="user-info">
-        <p>
-          <strong>Name:</strong> {name}
-        </p>
-        <p>
-          <strong>Email:</strong> {email}
-        </p>
-        <p>
-          <strong>Paid Leaves:</strong> {paid_leave_balance}
-        </p>
+    <>
+      <Header />
+      <div className="user-page">
+        <div className="user-info">
+          <h2> Sick leave balance</h2>
+          <h1> {userInfo.sick_leave_balance}</h1>
+        </div>
+        <div className="user-info">
+          <h2> Paid leave balance</h2>
+          <h1> {userInfo.paid_leave_balance} </h1>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
