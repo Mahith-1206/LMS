@@ -10,13 +10,14 @@ const RequestLeaveForm = () => {
   const [numberOfDays, setNumberOfDays] = useState(0);
   const [leaveType, setLeaveType] = useState("");
   const [reason, setReason] = useState("");
-  const [userId, setUserId] = useState(5);
+  // const [userId, setUserId] = useState();
   const { enqueueSnackbar } = useSnackbar();
 
   const userInfo = JSON.parse(localStorage.getItem("user"));
 
   const handleRequest = async () => {
-    setUserId(userInfo.user_id);
+    const userId = userInfo.user_id;
+    console.log("user id of user : " + userInfo.user_id);
     const response = await axios.post(
       "http://localhost:3001/leave/requestLeave",
       {

@@ -39,6 +39,7 @@ router.post("/requestLeave", (req, res) => {
     "SELECT * FROM leavemanagementsystem.users WHERE user_id = ?";
 
   let user;
+  let validated = true;
   db.query(getUserByUserIdQuery, [userId], (err, results) => {
     if (err) {
       console.error(err);
@@ -53,27 +54,38 @@ router.post("/requestLeave", (req, res) => {
 
       if (leaveType === "Sick Leave") {
         if (numberOfDays > sickLeaveBalance) {
+          validated = false;
           res.send("You don't have sufficient sick leave balance");
         }
       }
       if (leaveType === "Paid Leave") {
         if (numberOfDays > paidLeaveBalance) {
+          validated = false;
           res.send("You don't have sufficient paid leave balance");
         }
       }
-
-      //validation success, inserting into db
-      db.query(
-        "INSERT INTO leave_requests (start_date,end_date,number_of_days,leave_type,reason,status,user) VALUES (?,?,?,?,?,?,?) ",
-        [startDate, endDate, numberOfDays, leaveType, reason, status, userName],
-        (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send("Leave request successfull!");
+      if (validated) {
+        //validation success, inserting into db
+        db.query(
+          "INSERT INTO leave_requests (start_date,end_date,number_of_days,leave_type,reason,status,user) VALUES (?,?,?,?,?,?,?) ",
+          [
+            startDate,
+            endDate,
+            numberOfDays,
+            leaveType,
+            reason,
+            status,
+            userName,
+          ],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.send("Leave request successfull!");
+            }
           }
-        }
-      );
+        );
+      }
     }
   });
 });
