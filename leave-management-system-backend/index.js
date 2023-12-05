@@ -6,8 +6,6 @@ const cors = require("cors");
 const leavesRouter = require("./src/routes/leaves");
 const usersRouter = require("./src/routes/user");
 
-console.log("git push test");
-
 app.use(cors());
 app.use(express.json());
 

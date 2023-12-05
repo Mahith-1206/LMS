@@ -18,10 +18,6 @@ db.connect((err) => {
     console.error("Error connecting to MySQL:", err.message);
   } else {
     console.log("Connected to MySQL!");
-    // Perform any operations you need here
-
-    // Close the connection
-    // db.end();
   }
 });
 
@@ -54,10 +50,6 @@ router.post("/requestLeave", (req, res) => {
       const paidLeaveBalance = user.paid_leave_balance;
       const userName = user.user_name;
       //validating leave balances
-      console.log("leave type : " + leaveType);
-      console.log("number : " + numberOfDays);
-      console.log(" sick balance : " + sickLeaveBalance);
-      console.log(" paid balance : " + paidLeaveBalance);
 
       if (leaveType === "Sick Leave") {
         if (numberOfDays > sickLeaveBalance) {
