@@ -69,7 +69,7 @@ const LoginPage = () => {
     } else {
       try {
         const response = await axios.post(
-          "${config.serverUrl}/user/createUser",
+          `${config.serverUrl}/user/createUser`,
           {
             createName,
             createUsername,
