@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import "../styles/LeavesTable.css";
+import config from "../config.json";
 import {
   Table,
   TableBody,
@@ -20,7 +21,7 @@ const LeavesTable = () => {
   const getLeaveRequests = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/leave/getAllLeaves"
+        `${config.serverUrl}/leave/getAllLeaves`
       );
       setLeaveRequests(response.data);
     } catch (error) {
@@ -44,7 +45,7 @@ const LeavesTable = () => {
     console.log(`Leave ID: ${id} - Action: ${action}`);
     if (action === "approve") {
       const response = await axios.post(
-        "http://localhost:3001/leave/approveLeave/" + id
+        `${config.serverUrl}/leave/approveLeave/` + id
       );
       if (response.data === "Successfully Approved Leave request!") {
         setLeaveRequests((prevRequests) => {
@@ -58,7 +59,7 @@ const LeavesTable = () => {
       }
     } else if (action === "reject") {
       const response = await axios.post(
-        "http://localhost:3001/leave/rejectLeave/" + id
+        `${config.serverUrl}/leave/rejectLeave/` + id
       );
       if (response.data === "Successfully Rejected Leave request!") {
         setLeaveRequests((prevRequests) => {

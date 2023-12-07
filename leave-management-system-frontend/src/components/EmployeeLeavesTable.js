@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../config.json";
 import "../styles/LeavesTable.css";
 import {
   Table,
@@ -20,7 +21,7 @@ const EmployeeLeavesTable = () => {
   const getLeaveRequests = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/leave/getLeavesByUserName/" + userInfo.user_name
+        `${config.serverUrl}/leave/getLeavesByUserName/` + userInfo.user_name
       );
       setLeaveRequests(response.data);
     } catch (error) {

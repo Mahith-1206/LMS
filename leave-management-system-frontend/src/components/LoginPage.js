@@ -3,6 +3,7 @@ import axios from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import "../styles/LoginPage.css";
+import config from "../config.json";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const LoginPage = () => {
 
   const handleLogin = () => {
     axios
-      .post("http://localhost:3001/user/login", {
+      .post(`${config.serverUrl}/user/login`, {
         username,
         password,
       })
@@ -68,7 +69,7 @@ const LoginPage = () => {
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:3001/user/createUser",
+          "${config.serverUrl}/user/createUser",
           {
             createName,
             createUsername,

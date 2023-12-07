@@ -3,6 +3,7 @@ import axios from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import "../styles/LeaveRequestForm.css";
 import Header from "./Header";
+import config from "../config.json";
 
 const RequestLeaveForm = () => {
   const [startDate, setStartDate] = useState("");
@@ -19,7 +20,7 @@ const RequestLeaveForm = () => {
     const userId = userInfo.user_id;
     console.log("user id of user : " + userInfo.user_id);
     const response = await axios.post(
-      "http://localhost:3001/leave/requestLeave",
+      `${config.serverUrl}/leave/requestLeave`,
       {
         startDate,
         endDate,
