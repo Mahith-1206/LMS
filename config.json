@@ -1,7 +1,7 @@
 {
-  "DB_HOST": "localhost",
+  "DB_HOST": "leavemanagementsystem.c2lxnhnqsqut.us-east-2.rds.amazonaws.com",
   "DB_PORT": 3306,
   "DB_USER": "root",
-  "DB_PASSWORD": "root",
+  "DB_PASSWORD": "root1206",
   "DB_NAME": "leavemanagementsystem"
 }
