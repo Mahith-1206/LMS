@@ -15,23 +15,23 @@ function AdminHeader() {
   return (
     <>
       <AppBar position="static">
-        <Toolbar className="appbar">
+        <Toolbar className="appbar" style={{ justifyContent: "space-between" }}>
           <Typography variant="h4">Leave Management System</Typography>
-          <div
+          {/* <div
             style={{
-              marginLeft: "1940px",
+              marginLeft: "940px",
               marginTop: "10px",
             }}
+          > */}
+          <Button
+            variant="h4"
+            style={{ fontSize: "16px", flexDirection: "row" }}
+            onClick={handleLogout}
           >
-            <Button
-              variant="h4"
-              style={{ fontSize: "16px", flexDirection: "row" }}
-              onClick={handleLogout}
-            >
-              {" "}
-              Logout
-            </Button>
-          </div>
+            {" "}
+            Logout
+          </Button>
+          {/* </div> */}
         </Toolbar>
       </AppBar>
     </>

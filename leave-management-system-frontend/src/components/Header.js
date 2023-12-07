@@ -18,24 +18,20 @@ function Header() {
       <AppBar position="static">
         <Toolbar
           className="appbar"
-          style={{ display: "flex", flexDirection: "row" }}
+          style={{
+            justifyContent: "space-between",
+          }}
         >
           <Typography variant="h4">Leave Management System</Typography>
-          <div
-            style={{
-              marginLeft: "1940px",
-              marginTop: "10px",
-            }}
+
+          <Button
+            variant="h4"
+            style={{ fontSize: "16px", flexDirection: "row" }}
+            onClick={handleLogout}
           >
-            <Button
-              variant="h4"
-              style={{ fontSize: "16px", flexDirection: "row" }}
-              onClick={handleLogout}
-            >
-              {" "}
-              Logout
-            </Button>
-          </div>
+            {" "}
+            Logout
+          </Button>
         </Toolbar>
         <Toolbar
           sx={{ minHeight: "64px", backgroundColor: "rgb(92, 160, 185)" }}
